@@ -37,6 +37,17 @@ router.get("/", (req, res) => {
     res.send(pupuk);
 });
 
+router.post('/', (req, res) => {
+    const newPupuk = {
+        id: (pupuk.length + 1).toString(),  // ID baru berdasarkan panjang array bibit
+        nama: req.body.nama,
+        jenis: req.body.jenis,
+        stok: req.body.stok,
+        harga: req.body.harga
+    };
+    pupuk.push(newPupuk);
+    res.status(201).json(newPupuk);
+});
 
 
 module.exports = router;
