@@ -49,5 +49,22 @@ router.post('/', (req, res) => {
     res.status(201).json(newPupuk);
 });
 
+router.delete('/:id', (req, res) => {
+    // Menemukan index bibit berdasarkan ID
+    const pupukIndex = pupuk.findIndex(t => t.id === req.params.id);
+    
+    // Jika bibit tidak ditemukan
+    if (pupukIndex === -1) {
+        return res.status(404).json({ message: 'Pupuk tidak ditemukan' });
+    }
+
+    // Menghapus bibit berdasarkan index
+    const deletedPupuk = pupuk.splice(pupukIndex, 1)[0];  // pastikan ini menggunakan `deletedBibit` yang konsisten
+
+    // Mengirimkan respons bahwa data telah dihapus
+    res.status(200).json({ message: `Pupuk dengan nama ${deletedPupuk.nama} telah dihapus` });
+});
+
+
 
 module.exports = router;
