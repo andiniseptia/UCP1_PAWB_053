@@ -45,7 +45,6 @@ router.post('/', (req, res) => {
     res.status(201).json(newBibit);
 });
 
-
 router.delete('/:id', (req, res) => {
     // Menemukan index bibit berdasarkan ID
     const bibitIndex = bibit.findIndex(t => t.id === req.params.id);
@@ -62,6 +61,26 @@ router.delete('/:id', (req, res) => {
     res.status(200).json({ message: `Bibit dengan nama ${deletedBibit.nama} telah dihapus` });
 });
 
+router.put('/:id', (req, res) => {
+    // Cari bibit berdasarkan ID
+    const bibitToUpdate = bibit.find(t => t.id === req.params.id);
+
+    // Jika bibit tidak ditemukan
+    if (!bibitToUpdate) {
+        return res.status(404).json({ message: 'Bibit tidak ditemukan' });
+    }
+
+    // Perbarui data bibit
+    bibitToUpdate.nama = req.body.nama || bibitToUpdate.nama;
+    bibitToUpdate.stok = req.body.stok || bibitToUpdate.stok;
+    bibitToUpdate.harga = req.body.harga || bibitToUpdate.harga;
+
+    // Mengirimkan respons dengan bibit yang sudah diperbarui
+    res.status(200).json({
+        message: `Bibit dengan ID ${bibitToUpdate.id} telah diperbarui`,
+        updateBibit: bibitToUpdate
+    });
+});
 
 
 module.exports = router;
