@@ -45,6 +45,7 @@ router.post('/', (req, res) => {
     res.status(201).json(newBibit);
 });
 
+
 router.delete('/:id', (req, res) => {
     // Menemukan index bibit berdasarkan ID
     const bibitIndex = bibit.findIndex(t => t.id === req.params.id);
