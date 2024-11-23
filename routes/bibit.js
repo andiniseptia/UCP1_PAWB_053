@@ -30,6 +30,10 @@ const bibit = [
     },
 ];
 
+router.get("/", (req, res) => {
+    res.send(bibit);
+});
+
 
 
 module.exports = router;
